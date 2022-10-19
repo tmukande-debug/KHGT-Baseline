@@ -12,8 +12,8 @@ elif args.data == 'ml10m':
 	predir = '/content/KHGT-Baseline/Datasets/MultiInt-ML10M/'
 	behs = ['neg', 'neutral', 'pos']
 elif args.data == 'retail':
-        elif args.target == 'buy':
-		predir = '/content/KHGT-Baseline/Datasets/retail'
+        #elif args.target == 'buy':
+	predir = '/content/KHGT-Baseline/Datasets/retail'
 	behs = ['pv', 'fav', 'cart', 'buy']
 trnfile = predir + 'trn_'
 tstfile = predir + 'tst_'
