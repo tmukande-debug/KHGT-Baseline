@@ -63,8 +63,8 @@ class Recommender:
 		KWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
 		VWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
 		Q = tf.math.reduce_sum(Qs * QWeight, axis=0)
-		K = tf.tf.math.reduce_sum(Ks * KWeight, axis=0)
-		V = tf.tf.math.reduce_sum(Vs * VWeight, axis=0)
+		K = tf.math.reduce_sum(Ks * KWeight, axis=0)
+		V = tf.math.reduce_sum(Vs * VWeight, axis=0)
 
 		q = tf.reshape(tgtEmbeds @ Q, [-1, args.att_head, args.latdim//args.att_head])
 		k = tf.reshape(srcEmbeds @ K, [-1, args.att_head, args.latdim//args.att_head])
@@ -179,7 +179,7 @@ class Recommender:
 		sampNum = tf.shape(self.iids)[0] // 2
 		posPred = tf.slice(self.pred, [0], [sampNum])
 		negPred = tf.slice(self.pred, [sampNum], [-1])
-		self.preLoss = tf.reduce_sum(tf.maximum(0.0, 1.0 - (posPred - negPred))) / args.batch
+		self.preLoss = tf.math.reduce_sum(tf.maximum(0.0, 1.0 - (posPred - negPred))) / args.batch
 		self.regLoss = args.reg * Regularize()
 		self.loss = self.preLoss + self.regLoss
 
