@@ -47,7 +47,7 @@ def defineParam(name, shape, dtype=tf.float32, reg=False, initializer='xavier', 
 	assert name not in params, 'name %s already exists' % name
 	if initializer == 'xavier':
 		ret = tf.compat.v1.get_variable(name=name, dtype=dtype, shape=shape,
-			initializer=tf.compat.v1.keras.initializers.glorot_normal(dtype=tf.float32),
+			initializer=tf.compat.v1.keras.initializers.glorot_normal(),
 			trainable=trainable)
 	elif initializer == 'trunc_normal':
 		ret = tf.get_variable(name=name, initializer=tf.random.truncated_normal(shape=[int(shape[0]), shape[1]], mean=0.0, stddev=0.03, dtype=dtype))
