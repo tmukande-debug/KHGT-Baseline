@@ -124,14 +124,14 @@ def Bias(data, name=None, reg=False, reuse=False):
 def ActivateHelp(data, method):
 	if method == 'relu':
 		ret = tf.nn.relu(data)
-	elif method == 'sigmoid':
+        elif method == 'sigmoid':
 		ret = tf.nn.sigmoid(data)
-        elif method == 'gelu':
+        #elif method == 'gelu':
 		ret = tf.nn.gelu(data)
-        elif method == 'elu':
+        #elif method == 'elu':
 		ret = tf.nn.elu(data)
-	elif method == 'tanh':
-		ret = tf.nn.tanh(data)
+	elif method == 'gelu':
+		ret = tf.nn.gelu(data)
 	elif method == 'softmax':
 		ret = tf.nn.softmax(data, axis=-1)
 	elif method == 'leakyRelu':
