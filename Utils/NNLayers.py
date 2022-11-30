@@ -126,6 +126,10 @@ def ActivateHelp(data, method):
 		ret = tf.nn.relu(data)
 	elif method == 'sigmoid':
 		ret = tf.nn.sigmoid(data)
+        elif method == 'gelu':
+		ret = tf.nn.gelu(data)
+        elif method == 'elu':
+		ret = tf.nn.elu(data)
 	elif method == 'tanh':
 		ret = tf.nn.tanh(data)
 	elif method == 'softmax':
