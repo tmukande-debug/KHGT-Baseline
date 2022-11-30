@@ -398,7 +398,7 @@ class Recommender:
 
 if __name__ == '__main__':
 	logger.saveDefault = True
-	config = tf.compat.v1.ConfigProtoConfigProto()
+	config = tf.compat.v1.ConfigProto()
 	config.gpu_options.allow_growth = True
 	
 	log('Start')
