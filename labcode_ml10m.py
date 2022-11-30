@@ -398,12 +398,13 @@ class Recommender:
 
 if __name__ == '__main__':
 	logger.saveDefault = True
-	config = tf.config.list_physical_devices('GPU')
-	#tf.config.experimental.set_memory_growth(config, True)
+	config = tf.compat.v1.ConfigProtoConfigProto()
+	config.gpu_options.allow_growth = True
+	
 	log('Start')
 	datas = LoadData()
 	log('Load Data')
 
-	with tf.function(config=config) as sess:
+	with tf.compat.v1.Session(config=config) as sess:
 		recom = Recommender(sess, datas)
 		recom.run()
