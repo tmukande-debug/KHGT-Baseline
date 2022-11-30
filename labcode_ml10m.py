@@ -41,7 +41,7 @@ class Recommender:
 			stloc = len(self.metrics['TrainLoss'])
 		else:
 			stloc = 0
-			init = tf.global_variables_initializer()
+			init = tf.compat.v1.global_variables_initializer()
 			self.sess.run(init)
 			log('Varaibles Inited')
 		for ep in range(stloc, args.epoch):
