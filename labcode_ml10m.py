@@ -404,6 +404,6 @@ if __name__ == '__main__':
 	datas = LoadData()
 	log('Load Data')
 
-	with tf.Session(config=config) as sess:
+	with tf.function(config=config) as sess:
 		recom = Recommender(sess, datas)
 		recom.run()
