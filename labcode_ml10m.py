@@ -398,9 +398,8 @@ class Recommender:
 
 if __name__ == '__main__':
 	logger.saveDefault = True
-	config = tf.ConfigProto()
-	config.gpu_options.allow_growth = True
-
+	config = tf.config.list_physical_devices('GPU')
+	tf.config.experimental.set_memory_growth(gpu, True)
 	log('Start')
 	datas = LoadData()
 	log('Load Data')
