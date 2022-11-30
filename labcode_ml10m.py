@@ -62,9 +62,9 @@ class Recommender:
 		QWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
 		KWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
 		VWeight = NNs.defineRandomNameParam([args.memosize, 1, 1], reg=True)
-		Q = tf.reduce_sum(Qs * QWeight, axis=0)
-		K = tf.reduce_sum(Ks * KWeight, axis=0)
-		V = tf.reduce_sum(Vs * VWeight, axis=0)
+		Q = tf.math.reduce_sum(Qs * QWeight, axis=0)
+		K = tf.tf.math.reduce_sum(Ks * KWeight, axis=0)
+		V = tf.tf.math.reduce_sum(Vs * VWeight, axis=0)
 
 		q = tf.reshape(tgtEmbeds @ Q, [-1, args.att_head, args.latdim//args.att_head])
 		k = tf.reshape(srcEmbeds @ K, [-1, args.att_head, args.latdim//args.att_head])
@@ -156,24 +156,24 @@ class Recommender:
 		return pred
 
 	def prepareModel(self):
-		self.keepRate = tf.placeholder(name='keepRate', dtype=tf.float32, shape=[])
+		self.keepRate = tf.compat.v1.placeholder(name='keepRate', dtype=tf.float32, shape=[])
 		#self.actFunc = 'twoWayLeakyRelu6'
 		self.actFunc = 'gelu'
 		self.adjs = []
 		self.tpAdjs = []
 		self.iiAdjs = []
 		for i in range(args.intTypes):
-			self.adjs.append(tf.sparse_placeholder(dtype=tf.int32))
-			self.tpAdjs.append(tf.sparse_placeholder(dtype=tf.int32))
+			self.adjs.append(tf.compat.v1.sparse_placeholder(dtype=tf.int32))
+			self.tpAdjs.append(tf.compat.v1.sparse_placeholder(dtype=tf.int32))
 		for i in range(len(self.iiMats)):
-			self.iiAdjs.append(tf.sparse_placeholder(dtype=tf.int32))
+			self.iiAdjs.append(tf.compat.v1.sparse_placeholder(dtype=tf.int32))
 
-		self.all_usrs = tf.placeholder(name='all_usrs', dtype=tf.int32, shape=[None])
-		self.all_itms = tf.placeholder(name='all_itms', dtype=tf.int32, shape=[None])
-		self.usrNum = tf.placeholder(name='usrNum', dtype=tf.int64, shape=[])
-		self.itmNum = tf.placeholder(name='itmNum', dtype=tf.int64, shape=[])
-		self.uids = tf.placeholder(name='uids', dtype=tf.int32, shape=[None])
-		self.iids = tf.placeholder(name='iids', dtype=tf.int32, shape=[None])
+		self.all_usrs = tf.compat.v1.placeholder(name='all_usrs', dtype=tf.int32, shape=[None])
+		self.all_itms = tf.compat.v1.placeholder(name='all_itms', dtype=tf.int32, shape=[None])
+		self.usrNum = tf.compat.v1.placeholder(name='usrNum', dtype=tf.int64, shape=[])
+		self.itmNum = tf.compat.v1.placeholder(name='itmNum', dtype=tf.int64, shape=[])
+		self.uids = tf.compat.v1.placeholder(name='uids', dtype=tf.int32, shape=[None])
+		self.iids = tf.compat.v1.placeholder(name='iids', dtype=tf.int32, shape=[None])
 
 		self.pred = self.ours()
 		sampNum = tf.shape(self.iids)[0] // 2
@@ -184,8 +184,8 @@ class Recommender:
 		self.loss = self.preLoss + self.regLoss
 
 		globalStep = tf.Variable(0, trainable=False)
-		learningRate = tf.train.exponential_decay(args.lr, globalStep, args.decay_step, args.decay, staircase=True)
-		self.optimizer = tf.train.AdamOptimizer(learningRate).minimize(self.loss, global_step=globalStep)
+		learningRate = tf.compat.v1.train.exponential_decay(args.lr, globalStep, args.decay_step, args.decay, staircase=True)
+		self.optimizer = tf.compat.v1.train.AdamOptimizer(learningRate).minimize(self.loss, global_step=globalStep)
 
 	def sampleTrainBatch(self, batchIds, itmnum, label):
 		preSamp = list(np.random.permutation(itmnum))
