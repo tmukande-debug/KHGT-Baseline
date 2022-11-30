@@ -1,5 +1,6 @@
 import tensorflow as tf
-from tensorflow.contrib.layers import xavier_initializer
+#from tf.keras.initializers.glorot_normal import xavier_initializer
+#from tensorflow.contrib.layers import xavier_initializer
 import numpy as np
 
 paramId = 0
@@ -46,7 +47,7 @@ def defineParam(name, shape, dtype=tf.float32, reg=False, initializer='xavier', 
 	assert name not in params, 'name %s already exists' % name
 	if initializer == 'xavier':
 		ret = tf.get_variable(name=name, dtype=dtype, shape=shape,
-			initializer=xavier_initializer(dtype=tf.float32),
+			initializer=tf.keras.initializers.GlorotNormal(dtype=tf.float32),
 			trainable=trainable)
 	elif initializer == 'trunc_normal':
 		ret = tf.get_variable(name=name, initializer=tf.random.truncated_normal(shape=[int(shape[0]), shape[1]], mean=0.0, stddev=0.03, dtype=dtype))
