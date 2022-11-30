@@ -56,9 +56,9 @@ def defineParam(name, shape, dtype=tf.float32, reg=False, initializer='xavier', 
 			initializer=tf.zeros(shape=shape, dtype=tf.float32),
 			trainable=trainable)
 	elif initializer == 'ones':
-		ret = tf.get_variable(name=name, dtype=dtype, initializer=tf.ones(shape=shape, dtype=tf.float32), trainable=trainable)
+		ret = tf.compat.v1.get_variable(name=name, dtype=dtype, initializer=tf.ones(shape=shape, dtype=tf.float32), trainable=trainable)
 	elif not isinstance(initializer, str):
-		ret = tf.get_variable(name=name, dtype=dtype,
+		ret = tf.compat.v1.get_variable(name=name, dtype=dtype,
 			initializer=initializer, trainable=trainable)
 	else:
 		print('ERROR: Unrecognized initializer')
