@@ -132,16 +132,16 @@ def ActivateHelp(data, method):
 	elif method == 'softmax':
 		ret = tf.nn.softmax(data, axis=-1)
 	elif method == 'leakyRelu':
-		ret = tf.maximum(leaky*data, data)
+		ret = tf.math.maximum(leaky*data, data)
 	elif method == 'twoWayLeakyRelu6':
-		temMask = tf.to_float(tf.greater(data, 6.0))
-		ret = temMask * (6 + leaky * (data - 6)) + (1 - temMask) * tf.maximum(leaky * data, data)
+		temMask = tf.compat.v1.to_float(tf.greater(data, 6.0))
+		ret = temMask * (6 + leaky * (data - 6)) + (1 - temMask) * tf.math.maximum(leaky * data, data)
 	elif method == '-1relu':
-		ret = tf.maximum(-1.0, data)
+		ret = tf.math.maximum(-1.0, data)
 	elif method == 'relu6':
-		ret = tf.maximum(0.0, tf.minimum(6.0, data))
+		ret = tf.math.maximum(0.0, tf.minimum(6.0, data))
 	elif method == 'relu3':
-		ret = tf.maximum(0.0, tf.minimum(3.0, data))
+		ret = tf.math.maximum(0.0, tf.minimum(3.0, data))
 	else:
 		raise Exception('Error Activation Function')
 	return ret
