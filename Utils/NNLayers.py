@@ -122,6 +122,7 @@ def Bias(data, name=None, reg=False, reuse=False):
 		regParams[temBiasName] = bias
 	return data + bias
 
+##relu to Gelu
 def ActivateHelp(data, method):
 	if method == 'relu':
 		ret = tf.nn.relu(data)
