@@ -213,6 +213,8 @@ def lightSelfAttention(localReps, number, inpDim, numHeads):
 		rets[i] = tem1 + localReps[i]
 	return rets
 
+##tf reduce sum to einsum
+##softmax to other
 
 def lightSelfAttention1(localReps, number, inpDim, numHeads):
 	Q = defineRandomNameParam([inpDim, inpDim], reg=False)
