@@ -97,6 +97,7 @@ class Recommender:
 			unAct.append(newTgtEmbeds)
 			lats1.append(Activate(newTgtEmbeds, self.actFunc))
 
+		#lats2 = NNs.lightSelfAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
 		lats2 = NNs.lightSelfAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
 
 		# aggregation gate
