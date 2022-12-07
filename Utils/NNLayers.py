@@ -212,3 +212,20 @@ def lightSelfAttention(localReps, number, inpDim, numHeads):
 		tem1 = tf.reshape(tf.slice(attval, [0, i, 0], [-1, 1, -1]), [-1, inpDim])
 		rets[i] = tem1 + localReps[i]
 	return rets
+
+
+def lightSelfAttention1(localReps, number, inpDim, numHeads):
+	Q = defineRandomNameParam([inpDim, inpDim], reg=False)
+	rspReps = tf.reshape(tf.stack(localReps, axis=1), [-1, inpDim])
+	tem = rspReps @ Q
+	q = tf.reshape(tem, [-1, number, 1, numHeads, inpDim//numHeads])
+	k = tf.reshape(tem, [-1, 1, number, numHeads, inpDim//numHeads])
+	v = tf.reshape(rspReps, [-1, 1, number, numHeads, inpDim//numHeads])
+	att = tf.nn.softmax(tf.reduce_sum(q * k, axis=-1, keepdims=True) / tf.sqrt(inpDim/numHeads), axis=2)
+	attval = tf.reshape(tf.reduce_sum(att * v, axis=2), [-1, number, inpDim])
+	rets = [None] * number
+	paramId = 'dfltP%d' % getParamId()
+	for i in range(number):
+		tem1 = tf.reshape(tf.slice(attval, [0, i, 0], [-1, 1, -1]), [-1, inpDim])
+		rets[i] = tem1 + localReps[i]
+	return rets
