@@ -182,8 +182,8 @@ def Dropout(data, rate):
 	else:
 		return tf.nn.dropout(data, rate=rate)
 
-def multiHeadAttention(localReps, glbRep, number, numHeads, inpDim):
-	query = tf.reshape(tf.tile(tf.reshape(FC(glbRep, inpDim, useBias=True, reg=True), [-1, 1, inpDim]), [1, number, 1]), [-1, numHeads, inpDim//numHeads])
+def multiHeadAttention(localReps, number, numHeads, inpDim):
+	query = tf.reshape(tf.tile(tf.reshape(FC(inpDim, useBias=True, reg=True), [-1, 1, inpDim]), [1, number, 1]), [-1, numHeads, inpDim//numHeads])
 	temLocals = tf.reshape(localReps, [-1, inpDim])
 	key = tf.reshape(FC(temLocals, inpDim, useBias=True, reg=True), [-1, numHeads, inpDim//numHeads])
 	val = tf.reshape(FC(temLocals, inpDim, useBias=True, reg=True), [-1, number, numHeads, inpDim//numHeads])
