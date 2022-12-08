@@ -217,6 +217,8 @@ def lightSelfAttention(localReps, number, inpDim, numHeads):
 
 ##tf reduce sum to einsum
 ##softmax to other
+##CosNormer
+##Transevolve
 
 def lightSelfAttention1(localReps, number, inpDim, numHeads):
 	Q = defineRandomNameParam([inpDim, inpDim], reg=False)
