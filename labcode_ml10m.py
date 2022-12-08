@@ -2,8 +2,10 @@ import numpy as np
 from Params import args
 import Utils.TimeLogger as logger
 from Utils.TimeLogger import log
-import Utils.NNLayers as NNs
-from Utils.NNLayers import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
+#import Utils.NNLayers as NNs
+from Utils.NNLayers1 import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
+import Utils.NNLayers1 as NNs
+#from Utils.NNLayers import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
 from DataHandler_time import LoadData, negSamp, transToLsts, transpose, prepareGlobalData, sampleLargeGraph
 import tensorflow as tf
 from tensorflow.core.protobuf import config_pb2
@@ -98,7 +100,7 @@ class Recommender:
 			lats1.append(Activate(newTgtEmbeds, self.actFunc))
 
 		#lats2 = NNs.lightSelfAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
-		lats2 = NNs.lightSelfAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
+		lats2 = NNs.multiHeadAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
 
 		# aggregation gate
 		globalQuery = Activate(tf.add_n(unAct), self.actFunc)
