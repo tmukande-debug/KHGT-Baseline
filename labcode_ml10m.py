@@ -100,7 +100,7 @@ class Recommender:
 			lats1.append(Activate(newTgtEmbeds, self.actFunc))
 
 		#lats2 = NNs.lightSelfAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
-		lats2 = NNs.multiHeadAttention(lats1, number=len(mats), glbRep = localReps[number],  inpDim=args.latdim, numHeads=args.att_head)
+		lats2 = NNs.multiHeadAttention(lats1, number=len(mats), inpDim=args.latdim, numHeads=args.att_head)
 
 		# aggregation gate
 		globalQuery = Activate(tf.add_n(unAct), self.actFunc)
