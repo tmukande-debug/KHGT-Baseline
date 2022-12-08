@@ -1,6 +1,7 @@
 
 
 import tensorflow as tf
+#from tf.keras.initializers.glorot_normal import xavier_initializer
 #from tensorflow.contrib.layers import xavier_initializer
 import numpy as np
 
@@ -9,7 +10,7 @@ biasDefault = False
 params = {}
 regParams = {}
 ita = 0.2
-leaky = 0.01
+leaky = 0.1
 
 def getParamId():
 	global paramId
@@ -47,19 +48,19 @@ def defineParam(name, shape, dtype=tf.float32, reg=False, initializer='xavier', 
 	global regParams
 	assert name not in params, 'name %s already exists' % name
 	if initializer == 'xavier':
-		ret = tf.get_variable(name=name, dtype=dtype, shape=shape,
-			initializer=xavier_initializer(dtype=tf.float32),
+		ret = tf.compat.v1.get_variable(name=name, dtype=dtype, shape=shape,
+			initializer=tf.compat.v1.keras.initializers.glorot_normal(),
 			trainable=trainable)
 	elif initializer == 'trunc_normal':
 		ret = tf.get_variable(name=name, initializer=tf.random.truncated_normal(shape=[int(shape[0]), shape[1]], mean=0.0, stddev=0.03, dtype=dtype))
 	elif initializer == 'zeros':
-		ret = tf.get_variable(name=name, dtype=dtype,
+		ret = tf.compat.v1.get_variable(name=name, dtype=dtype,
 			initializer=tf.zeros(shape=shape, dtype=tf.float32),
 			trainable=trainable)
 	elif initializer == 'ones':
-		ret = tf.get_variable(name=name, dtype=dtype, initializer=tf.ones(shape=shape, dtype=tf.float32), trainable=trainable)
+		ret = tf.compat.v1.get_variable(name=name, dtype=dtype, initializer=tf.ones(shape=shape, dtype=tf.float32), trainable=trainable)
 	elif not isinstance(initializer, str):
-		ret = tf.get_variable(name=name, dtype=dtype,
+		ret = tf.compat.v1.get_variable(name=name, dtype=dtype,
 			initializer=initializer, trainable=trainable)
 	else:
 		print('ERROR: Unrecognized initializer')
@@ -123,26 +124,27 @@ def Bias(data, name=None, reg=False, reuse=False):
 		regParams[temBiasName] = bias
 	return data + bias
 
+##relu to Gelu
 def ActivateHelp(data, method):
 	if method == 'relu':
 		ret = tf.nn.relu(data)
 	elif method == 'sigmoid':
 		ret = tf.nn.sigmoid(data)
-	elif method == 'tanh':
-		ret = tf.nn.tanh(data)
+	elif method == 'gelu':
+		ret = tf.nn.gelu(data)
 	elif method == 'softmax':
 		ret = tf.nn.softmax(data, axis=-1)
 	elif method == 'leakyRelu':
-		ret = tf.maximum(leaky*data, data)
-	elif method == 'twoWayLeakyRelu':
-		temMask = tf.to_float(tf.greater(data, 1.0))
-		ret = temMask * (1 + leaky * (data - 1)) + (1 - temMask) * tf.maximum(leaky * data, data)
+		ret = tf.math.maximum(leaky*data, data)
+	elif method == 'twoWayLeakyRelu6':
+		temMask = tf.compat.v1.to_float(tf.greater(data, 6.0))
+		ret = temMask * (6 + leaky * (data - 6)) + (1 - temMask) * tf.math.maximum(leaky * data, data)
 	elif method == '-1relu':
-		ret = tf.maximum(-1.0, data)
+		ret = tf.math.maximum(-1.0, data)
 	elif method == 'relu6':
-		ret = tf.maximum(0.0, tf.minimum(6.0, data))
+		ret = tf.math.maximum(0.0, tf.minimum(6.0, data))
 	elif method == 'relu3':
-		ret = tf.maximum(0.0, tf.minimum(3.0, data))
+		ret = tf.math.maximum(0.0, tf.minimum(3.0, data))
 	else:
 		raise Exception('Error Activation Function')
 	return ret
