@@ -205,7 +205,8 @@ def lightSelfAttention(localReps, number, inpDim, numHeads):
 	q = tf.reshape(tem, [-1, number, 1, numHeads, inpDim//numHeads])
 	k = tf.reshape(tem, [-1, 1, number, numHeads, inpDim//numHeads])
 	v = tf.reshape(rspReps, [-1, 1, number, numHeads, inpDim//numHeads])
-	att = tf.nn.softmax(tf.reduce_sum(q * k, axis=-1, keepdims=True) / tf.sqrt(inpDim/numHeads), axis=2)
+	#att = tf.nn.softmax(tf.reduce_sum(q * k, axis=-1, keepdims=True) / tf.sqrt(inpDim/numHeads), axis=2)
+	att = tf.nn.softmax(tf.reduce_sum(q * k, axis=-1, keepdims=True) / (inpDim/numHeads), axis=2)
 	attval = tf.reshape(tf.reduce_sum(att * v, axis=2), [-1, number, inpDim])
 	rets = [None] * number
 	paramId = 'dfltP%d' % getParamId()
