@@ -129,7 +129,7 @@ def ActivateHelp(data, method):
 	elif method == 'sigmoid':
 		ret = tf.nn.sigmoid(data)
 	elif method == 'gelu':
-		ret = tf.nn.gelu(data)
+		ret = tf.keras.activations.gelu (data, approximate=False)
 	elif method == 'softmax':
 		ret = tf.nn.softmax(data, axis=-1)
 	elif method == 'leakyRelu':
