@@ -123,7 +123,7 @@ class Recommender:
 		cosine = tf.expand_dims(tf.math.cos(pos * divTerm) / np.sqrt(args.latdim), axis=-1)
 		timeEmbed = tf.reshape(tf.concat([sine, cosine], axis=-1), [self.maxTime, args.latdim*2]) / 4.0
 		return timeEmbed
-
+#change embedding
 	def ours(self):
 		all_uEmbed0 = NNs.defineParam('uEmbed0', [args.user, args.latdim], reg=True)
 		all_iEmbed0 = NNs.defineParam('iEmbed0', [args.item, args.latdim], reg=True)
