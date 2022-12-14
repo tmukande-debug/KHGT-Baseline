@@ -216,7 +216,7 @@ def lightSelfAttention(localReps, number, inpDim, numHeads):
 	return rets
 
 ##tf reduce sum to einsum
-##softmax to other
+##Nystromformer
 ##CosNormer
 ##Transevolve
 
