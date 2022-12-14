@@ -1,6 +1,6 @@
 import tensorflow as tf
-#from tf.keras.initializers.glorot_normal import xavier_initializer
-#from tensorflow.contrib.layers import xavier_initializer
+import tensorflow as tf
+from einops import rearrange, reduce
 import numpy as np
 
 paramId = 0
