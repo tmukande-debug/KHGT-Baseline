@@ -3,7 +3,7 @@ from Params import args
 import Utils.TimeLogger as logger
 from Utils.TimeLogger import log
 import Utils.NNLayers as NNs
-from import TFAdan
+from Adan import TFAdan
 #import Utils.NNLayers1 as NNs
 from Utils.NNLayers import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
 from DataHandler_time import LoadData, negSamp, transToLsts, transpose, prepareGlobalData, sampleLargeGraph
