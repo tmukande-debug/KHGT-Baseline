@@ -3,7 +3,7 @@ from Params import args
 import Utils.TimeLogger as logger
 from Utils.TimeLogger import log
 import Utils.NNLayers as NNs
-from Adan import TFAdan
+from import TFAdan
 #import Utils.NNLayers1 as NNs
 from Utils.NNLayers import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
 from DataHandler_time import LoadData, negSamp, transToLsts, transpose, prepareGlobalData, sampleLargeGraph
@@ -188,7 +188,8 @@ class Recommender:
 
 		globalStep = tf.Variable(0, trainable=False)
 		learningRate = tf.compat.v1.train.exponential_decay(args.lr, globalStep, args.decay_step, args.decay, staircase=True)
-		self.optimizer = tf.compat.v1.train.AdamOptimizer(learningRate).minimize(self.loss, global_step=globalStep)
+		#self.optimizer = tf.compat.v1.train.AdamOptimizer(learningRate).minimize(self.loss, global_step=globalStep)
+		self.optimizer = TFAdan(learning_rate=0.001, beta_1=0.02, beta_2=0.08, beta_3=0.01, epsilon=1e-7, weight_decay=0)
 
 	def sampleTrainBatch(self, batchIds, itmnum, label):
 		preSamp = list(np.random.permutation(itmnum))
