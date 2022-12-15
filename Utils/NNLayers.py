@@ -1,6 +1,6 @@
 #import tensorflow as tf
 import tensorflow as tf
-#from einops import rearrange, reduce
+from tf.keras.initializers.glorot_normal import xavier_initializer
 import numpy as np
 
 paramId = 0
