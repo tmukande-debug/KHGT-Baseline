@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.contrib.layers import xavier_initializer
+import tensorflow.compat.v2 as tf
 import numpy as np
 
 paramId = 0
