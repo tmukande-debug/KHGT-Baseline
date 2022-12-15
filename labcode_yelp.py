@@ -3,7 +3,7 @@ from Params import args
 import Utils.TimeLogger as logger
 from Utils.TimeLogger import log
 import Utils.NNLayers as NNs
-from Utils.NNLayers import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
+from Utils.NNLayers2 import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
 from DataHandler_time import LoadData, negSamp, transToLsts, transpose
 import tensorflow as tf
 from tensorflow.core.protobuf import config_pb2
