@@ -2,7 +2,7 @@ import numpy as np
 from Params import args
 import Utils.TimeLogger as logger
 from Utils.TimeLogger import log
-import Utils.NNLayers as NNs
+import Utils.NNLayers2 as NNs
 from Utils.NNLayers2 import FC, Regularize, Activate, Dropout, Bias, getParam, defineParam, defineRandomNameParam
 from DataHandler_time import LoadData, negSamp, transToLsts, transpose
 import tensorflow as tf
