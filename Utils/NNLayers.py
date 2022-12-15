@@ -236,5 +236,3 @@ def lightSelfAttention1(localReps, number, inpDim, numHeads):
 		rets[i] = tem1 + localReps[i]
 	return rets
 
-
-#################################################################################
