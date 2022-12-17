@@ -160,8 +160,8 @@ class Recommender:
 
 	def prepareModel(self):
 		self.keepRate = tf.compat.v1.placeholder(name='keepRate', dtype=tf.float32, shape=[])
-		#self.actFunc = 'twoWayLeakyRelu6'
-		self.actFunc = 'gelu'
+		self.actFunc = 'twoWayLeakyRelu6'
+		#self.actFunc = 'gelu'
 		self.adjs = []
 		self.tpAdjs = []
 		self.iiAdjs = []
