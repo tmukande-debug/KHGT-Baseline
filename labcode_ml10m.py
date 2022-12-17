@@ -389,12 +389,12 @@ class Recommender:
 		with open('History/' + args.save_path + '.his', 'wb') as fs:
 			pickle.dump(self.metrics, fs)
 
-		saver = tf.compat.v1.train.Saver()
+		saver = tf.train.Saver()
 		saver.save(self.sess, 'Models/' + args.save_path)
 		log('Model Saved: %s' % args.save_path)
 
 	def loadModel(self):
-		saver = tf.compat.v1.train.Saver()
+		saver = tf.train.Saver()
 		saver.restore(sess, 'Models/' + args.load_model)
 		with open('History/' + args.load_model + '.his', 'rb') as fs:
 			self.metrics = pickle.load(fs)
@@ -402,13 +402,13 @@ class Recommender:
 
 if __name__ == '__main__':
 	logger.saveDefault = True
-	config = tf.compat.v1.ConfigProto()
+	config = tf.ConfigProto()
 	config.gpu_options.allow_growth = True
 	
 	log('Start')
 	datas = LoadData()
 	log('Load Data')
 
-	with tf.compat.v1.Session(config=config) as sess:
+	with tf.Session(config=config) as sess:
 		recom = Recommender(sess, datas)
 		recom.run()
